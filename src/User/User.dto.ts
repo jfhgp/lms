@@ -8,6 +8,7 @@ import {
 } from "class-validator";
 import { College } from "../College/College.entity";
 import { Region } from "../Region/Region.entity";
+import { Student } from "../Student/Student.entity";
 import { UserRole } from "./UserRoleEnum";
 
 export class UserDto {
@@ -48,4 +49,7 @@ export class UserDto {
 
   @IsOptional()
   region_id: Region;
+
+  @IsOptional()
+  student_id: Student;
 }

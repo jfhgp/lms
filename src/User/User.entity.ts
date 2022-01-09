@@ -1,6 +1,8 @@
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 import { College } from "../College/College.entity";
+import { Employee } from "../Employee/Employee.entity";
 import { Region } from "../Region/Region.entity";
+import { Student } from "../Student/Student.entity";
 import { BaseAuto } from "../Utils/BaseAuto";
 import { UserRole } from "./UserRoleEnum";
 
@@ -39,4 +41,12 @@ export class User extends BaseAuto {
   @ManyToOne(() => Region, (region) => region, { nullable: true })
   @JoinColumn({ name: "region_id" })
   region_id: Region;
+
+  @ManyToOne(() => Student, (student) => student, { nullable: true })
+  @JoinColumn({ name: "student_id" })
+  student_id: Student;
+
+  @ManyToOne(() => Employee, (employee) => employee, { nullable: true })
+  @JoinColumn({ name: "employee_id" })
+  employee_id: Employee;
 }
