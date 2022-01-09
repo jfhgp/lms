@@ -7,6 +7,7 @@ import {
   IsString,
 } from "class-validator";
 import { College } from "../College/College.entity";
+import { Employee } from "../Employee/Employee.entity";
 import { Region } from "../Region/Region.entity";
 import { Student } from "../Student/Student.entity";
 import { UserRole } from "./UserRoleEnum";
@@ -52,4 +53,6 @@ export class UserDto {
 
   @IsOptional()
   student_id: Student;
+
+  employee_id: Employee;
 }

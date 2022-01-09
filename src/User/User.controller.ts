@@ -34,6 +34,7 @@ export class UserController {
   static getAll = async (req: Request, res: Response) => {
     try {
       const result = await UserService.getAll();
+      result.forEach((element: any) => delete element.password);
       return res.status(200).json({ status: 200, data: result });
     } catch (error) {
       return res.status(500).json({ error });
@@ -43,6 +44,7 @@ export class UserController {
   static getOne = async (req: Request, res: Response) => {
     try {
       const result = await UserService.getOne(req.params.id as any);
+      delete result[0].password;
       return res.status(200).json({ status: 200, data: result[0] });
     } catch (error) {
       return res.status(500).json({ error });
@@ -65,10 +67,11 @@ export class UserController {
           message: "You are not logged in! Please log in to get access.",
         });
       }
+
       const decoded: any = await tokenVerification(token);
 
       let currentUser = await getRepository(User).query(
-        'SELECT id, "name, role, student_id FROM users WHERE id = $1',
+        "SELECT id, name, role, student_id FROM users WHERE id = $1",
         [decoded.id]
       );
 
@@ -87,6 +90,7 @@ export class UserController {
         isStudent: currentUser.student_id ? true : false,
       };
       req.user = user;
+
       next();
     } catch (error) {
       return res.status(401).json({

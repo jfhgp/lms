@@ -12,7 +12,7 @@ export class LogisticsUtils {
   };
 }
 
-export interface Token {
+export abstract class Token {
   id: number;
   name: string;
   role: string;
