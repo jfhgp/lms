@@ -99,4 +99,16 @@ export class UserController {
       });
     }
   };
+
+  static restrictTO =
+    (...roles: any) =>
+    (req: Request, res: Response, next: NextFunction) => {
+      if (!roles.includes(req.user.role)) {
+        return res.status(403).json({
+          status: 403,
+          message: "You do not have permission to perform this action",
+        });
+      }
+      next();
+    };
 }
