@@ -1,8 +1,8 @@
 import { Column, Entity } from "typeorm";
 import { BaseAuto } from "../Utils/BaseAuto";
 
-@Entity("sub_groups")
-export class Group extends BaseAuto {
+@Entity("book_conditions")
+export class BookCondition extends BaseAuto {
   @Column({ nullable: false, type: "varchar" })
-  sub_group: string;
+  book_condition: string;
 }

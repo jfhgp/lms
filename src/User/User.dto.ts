@@ -54,5 +54,6 @@ export class UserDto {
   @IsOptional()
   student_id: Student;
 
+  @IsOptional()
   employee_id: Employee;
 }
