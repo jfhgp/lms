@@ -1,6 +1,5 @@
 import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
 import { BookCategory } from "../BookCategory/BookCategory.entity";
-import { BookCondition } from "../BookCondition/BookCondition.entity";
 import { BookSubCategory } from "../BookSubCategory/BookSubCategory.entity";
 import { BookType } from "../BookType/BookType.entity";
 import { College } from "../College/College.entity";
@@ -10,6 +9,9 @@ import { BaseAuto } from "../Utils/BaseAuto";
 
 @Entity("soft_books")
 export class SoftBook extends BaseAuto {
+  @Column({ nullable: true, type: "boolean", default: false })
+  approved: boolean;
+  
   @Column({ nullable: false, type: "varchar" })
   isbn: string;
 
@@ -50,15 +52,6 @@ export class SoftBook extends BaseAuto {
   @JoinColumn({ name: "sub_category_id" })
   sub_category_id: BookSubCategory;
 
-  @Column({ nullable: true, type: "integer", default: 1 })
-  number_of_copies: number;
-
-  @OneToOne(() => BookCondition, (book_condition) => book_condition, {
-    nullable: false,
-  })
-  @JoinColumn({ name: "book_condition_id" })
-  book_condition_id: BookCondition;
-
   @Column({ nullable: false, type: "varchar" })
   image_front: string;
 
@@ -67,9 +60,6 @@ export class SoftBook extends BaseAuto {
 
   @Column({ nullable: true, type: "boolean", default: false })
   hand_written: boolean;
-
-  @Column({ nullable: true, type: "boolean", default: false })
-  xerox_copy: boolean;
 
   @OneToOne(() => BookType, (book_type) => book_type, {
     nullable: true,
@@ -80,9 +70,6 @@ export class SoftBook extends BaseAuto {
   @Column({ nullable: true, type: "boolean", default: false })
   is_unique: boolean;
 
-  @Column({ nullable: true, type: "float" })
-  price: number;
-
   @Column({ nullable: true, type: "varchar" })
   source_of_book: string;
 
@@ -92,15 +79,24 @@ export class SoftBook extends BaseAuto {
   @JoinColumn({ name: "college_id" })
   college_id: College;
 
+  @Column({ nullable: true, type: "varchar" })
+  book_uri: string;
+
   @OneToOne(() => User, (user) => user, {
-    nullable: false,
+    nullable: true,
   })
   @JoinColumn({ name: "added_by" })
   added_by: User;
 
   @OneToOne(() => User, (user) => user, {
-    nullable: false,
+    nullable: true,
   })
   @JoinColumn({ name: "updated_by" })
   updated_by: User;
+
+  @OneToOne(() => User, (user) => user, {
+    nullable: true,
+  })
+  @JoinColumn({ name: "approved_by" })
+  approved_by: User;
 }

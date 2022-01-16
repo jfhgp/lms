@@ -11,6 +11,10 @@ import { BaseAuto } from "../Utils/BaseAuto";
 
 @Entity("hard_books")
 export class HardBook extends BaseAuto {
+  // composite key accessible_no with college_id
+  @Column({ nullable: false, type: "varchar" })
+  accessible_no: string;
+
   @Column({ nullable: false, type: "varchar" })
   isbn: string;
 
@@ -100,13 +104,13 @@ export class HardBook extends BaseAuto {
   box_id: Box;
 
   @OneToOne(() => User, (user) => user, {
-    nullable: false,
+    nullable: true,
   })
   @JoinColumn({ name: "added_by" })
   added_by: User;
 
   @OneToOne(() => User, (user) => user, {
-    nullable: false,
+    nullable: true,
   })
   @JoinColumn({ name: "updated_by" })
   updated_by: User;
