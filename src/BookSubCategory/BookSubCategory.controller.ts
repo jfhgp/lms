@@ -8,6 +8,7 @@ export class BookSubCategoryController {
   static add = async (req: Request, res: Response) => {
     try {
       const data: BookSubCategoryDto = req.body;
+      data.added_by = req.user.id;
 
       const dto = plainToClass(BookSubCategoryDto, data);
 

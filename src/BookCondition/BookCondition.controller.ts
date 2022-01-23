@@ -8,6 +8,7 @@ export class BookConditionController {
   static add = async (req: Request, res: Response) => {
     try {
       const data: BookConditionDto = req.body;
+      data.added_by = req.user.id;
 
       const dto = plainToClass(BookConditionDto, data);
 

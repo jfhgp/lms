@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { User } from "../User/User.entity";
 import { Province } from "../Province/Province.entity";
 
 export class RegionDto {
@@ -8,4 +9,7 @@ export class RegionDto {
 
   @IsNotEmpty()
   province_id: Province;
+
+  @IsOptional()
+  added_by: User;
 }

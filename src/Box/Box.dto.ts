@@ -1,5 +1,6 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { Portion } from "../Portion/Portion.entity";
+import { User } from "../User/User.entity";
 
 export class BoxDto {
   @IsNotEmpty()
@@ -8,4 +9,7 @@ export class BoxDto {
 
   @IsNotEmpty()
   portion_id: Portion;
+
+  @IsOptional()
+  added_by: User;
 }

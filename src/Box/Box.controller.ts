@@ -8,6 +8,7 @@ export class BoxController {
   static add = async (req: Request, res: Response) => {
     try {
       const data: BoxDto = req.body;
+      data.added_by = req.user.id;
 
       const dto = plainToClass(BoxDto, data);
 

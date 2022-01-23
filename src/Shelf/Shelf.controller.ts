@@ -8,6 +8,7 @@ export class ShelfController {
   static add = async (req: Request, res: Response) => {
     try {
       const data: ShelfDto = req.body;
+      data.added_by = req.user.id;
 
       const dto = plainToClass(ShelfDto, data);
 

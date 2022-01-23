@@ -8,6 +8,7 @@ export class SchoolTypeController {
   static add = async (req: Request, res: Response) => {
     try {
       const data: SchoolTypeDto = req.body;
+      data.added_by = req.user.id;
 
       const dto = plainToClass(SchoolTypeDto, data);
 

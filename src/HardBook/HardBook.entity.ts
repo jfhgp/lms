@@ -6,7 +6,6 @@ import { BookType } from "../BookType/BookType.entity";
 import { Box } from "../Box/Box.entity";
 import { College } from "../College/College.entity";
 import { Language } from "../Language/Language.entity";
-import { User } from "../User/User.entity";
 import { BaseAuto } from "../Utils/BaseAuto";
 
 @Entity("hard_books")
@@ -103,16 +102,4 @@ export class HardBook extends BaseAuto {
   })
   @JoinColumn({ name: "box_id" })
   box_id: Box;
-
-  @OneToOne(() => User, (user) => user, {
-    nullable: true,
-  })
-  @JoinColumn({ name: "added_by" })
-  added_by: User;
-
-  @OneToOne(() => User, (user) => user, {
-    nullable: true,
-  })
-  @JoinColumn({ name: "updated_by" })
-  updated_by: User;
 }

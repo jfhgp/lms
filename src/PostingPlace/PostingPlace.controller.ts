@@ -8,6 +8,7 @@ export class PostingPlaceController {
   static add = async (req: Request, res: Response) => {
     try {
       const data: PostingPlaceDto = req.body;
+      data.added_by = req.user.id;
 
       const dto = plainToClass(PostingPlaceDto, data);
 

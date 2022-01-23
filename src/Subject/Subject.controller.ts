@@ -8,6 +8,7 @@ export class SubjectController {
   static add = async (req: Request, res: Response) => {
     try {
       const data: SubjectDto = req.body;
+      data.added_by = req.user.id;
 
       const dto = plainToClass(SubjectDto, data);
 

@@ -8,6 +8,7 @@ export class ScaleController {
   static add = async (req: Request, res: Response) => {
     try {
       const data: ScaleDto = req.body;
+      data.added_by = req.user.id;
 
       const dto = plainToClass(ScaleDto, data);
 

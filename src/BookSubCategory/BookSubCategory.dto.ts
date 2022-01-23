@@ -1,5 +1,6 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { BookCategory } from "../BookCategory/BookCategory.entity";
+import { User } from "../User/User.entity";
 
 export class BookSubCategoryDto {
   @IsNotEmpty()
@@ -8,4 +9,7 @@ export class BookSubCategoryDto {
 
   @IsNotEmpty()
   book_category_id: BookCategory;
+
+  @IsOptional()
+  added_by: User;
 }

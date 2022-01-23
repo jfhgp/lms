@@ -1,7 +1,8 @@
-import { IsEnum, IsNotEmpty, IsString } from "class-validator";
+import { IsEnum, IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { District } from "../District/District.entity";
 import { Region } from "../Region/Region.entity";
 import { Subdivision } from "../Subdivision/Subdivision.entity";
+import { User } from "../User/User.entity";
 import { GenderEnum } from "./GenderEnum";
 
 export class BoardDto {
@@ -25,4 +26,7 @@ export class BoardDto {
 
   @IsNotEmpty()
   region_id: Region;
+
+  @IsOptional()
+  added_by: User;
 }

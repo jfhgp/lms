@@ -8,6 +8,7 @@ export class GenderController {
   static add = async (req: Request, res: Response) => {
     try {
       const data: GenderDto = req.body;
+      data.added_by = req.user.id;
 
       const dto = plainToClass(GenderDto, data);
 

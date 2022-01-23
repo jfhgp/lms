@@ -22,6 +22,7 @@ import { Section } from "../Section/Section.entity";
 import { Subdivision } from "../Subdivision/Subdivision.entity";
 import { Subject } from "../Subject/Subject.entity";
 import { TeachingStatus } from "../TeachingStatus/TeachingStatus.entity";
+import { User } from "../User/User.entity";
 
 export class EmployeeDto {
   @IsNotEmpty()
@@ -171,4 +172,7 @@ export class EmployeeDto {
   @IsOptional()
   @IsString()
   image_name: string;
+
+  @IsOptional()
+  added_by: User;
 }

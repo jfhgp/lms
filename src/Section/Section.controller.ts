@@ -8,6 +8,7 @@ export class SectionController {
   static add = async (req: Request, res: Response) => {
     try {
       const data: SectionDto = req.body;
+      data.added_by = req.user.id;
 
       const dto = plainToClass(SectionDto, data);
 

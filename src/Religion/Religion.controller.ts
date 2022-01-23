@@ -8,6 +8,7 @@ export class ReligionController {
   static add = async (req: Request, res: Response) => {
     try {
       const data: ReligionDto = req.body;
+      data.added_by = req.user.id;
 
       const dto = plainToClass(ReligionDto, data);
 

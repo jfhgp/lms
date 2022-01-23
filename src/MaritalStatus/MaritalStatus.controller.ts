@@ -8,6 +8,7 @@ export class MaritalStatusController {
   static add = async (req: Request, res: Response) => {
     try {
       const data: MaritalStatusDto = req.body;
+      data.added_by = req.user.id;
 
       const dto = plainToClass(MaritalStatusDto, data);
 

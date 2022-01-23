@@ -8,6 +8,7 @@ export class GroupController {
   static add = async (req: Request, res: Response) => {
     try {
       const data: GroupDto = req.body;
+      data.added_by = req.user.id;
 
       const dto = plainToClass(GroupDto, data);
 

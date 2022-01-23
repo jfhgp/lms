@@ -8,6 +8,7 @@ export class ProvinceController {
   static add = async (req: Request, res: Response) => {
     try {
       const data: ProvinceDto = req.body;
+      data.added_by = req.user.id;
 
       const dto = plainToClass(ProvinceDto, data);
 

@@ -8,6 +8,7 @@ export class DistrictController {
   static add = async (req: Request, res: Response) => {
     try {
       const data: DistrictDto = req.body;
+      data.added_by = req.user.id;
 
       const dto = plainToClass(DistrictDto, data);
 

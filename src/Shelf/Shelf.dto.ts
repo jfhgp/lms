@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { User } from "../User/User.entity";
 import { College } from "../College/College.entity";
 
 export class ShelfDto {
@@ -8,4 +9,7 @@ export class ShelfDto {
 
   @IsNotEmpty()
   college_id: College;
+
+  @IsOptional()
+  added_by: User;
 }

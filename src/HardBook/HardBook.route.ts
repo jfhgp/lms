@@ -6,8 +6,8 @@ const router = Router();
 // router.use(UserController.protect);
 
 router.post("/", HardBookController.add);
-// router.get("/:id", ShippingController.get);
-// router.get("", ShippingController.getAll);
-// router.patch("/:id", ShippingController.update);
+router.get("/:id", HardBookController.get);
+router.get("", HardBookController.getAll);
+router.patch("/:id", HardBookController.update);
 
 export default router;
