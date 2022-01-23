@@ -1,14 +1,14 @@
 {
-  "name": "hitech-logistics",
+  "name": "safe-tech",
   "version": "1.0.0",
-  "description": "Hi Tech Logistics",
+  "description": "Abdul Bari",
   "main": "app.js",
   "scripts": {
     "build": "tsc",
     "start": "node dist/app.js",
     "dev": "tsc-watch --onSuccess \"node dist/app.js\" "
   },
-  "author": "Hi Tech Prime",
+  "author": "Abdul Bari",
   "license": "ISC",
   "dependencies": {
     "@types/moment": "^2.13.0",
