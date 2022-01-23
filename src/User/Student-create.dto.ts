@@ -41,4 +41,7 @@ export class CreateStudentDto extends UserDto {
   @IsOptional()
   @IsString()
   address: string;
+
+  @IsNotEmpty()
+  passwordConfirm: string;
 }

@@ -3,11 +3,14 @@ import { plainToClass } from "class-transformer";
 import { getRepository } from "typeorm";
 import { signJwt } from "../auth/Auth";
 import { College } from "../College/College.entity";
+import { Designation } from "../Designation/Designation.entity";
 import { Employee } from "../Employee/Employee.entity";
 import { Region } from "../Region/Region.entity";
 import { Student } from "../Student/Student.entity";
 import { LogisticsUtils } from "../Utils/fectory";
 import { SignInDto } from "./SignIn.dto";
+import { CreateStaffDto } from "./Staff-create.dto";
+import { CreateStudentDto } from "./Student-create.dto";
 import { CreateUserDto } from "./User-create.dto";
 import { User } from "./User.entity";
 
@@ -70,6 +73,94 @@ export class UserService {
       if (data.password !== data.passwordConfirm) {
         return { message: "Both passwords are not matching" };
       }
+
+      dto.password = await hash(dto.password, 10);
+
+      return await User.save(await User.create(dto));
+    } catch (error) {
+      return error;
+    }
+  };
+
+  static createStudent = async (data: CreateStudentDto) => {
+    try {
+      if (data.password !== data.passwordConfirm) {
+        return { error: "password and password confirm not matches" };
+      }
+
+      if (data.email) {
+        let email = await getRepository(User).query(
+          "SELECT email FROM users WHERE email = $1",
+          [data.email]
+        );
+        if (email.length > 0) {
+          return { error: "email already exists" };
+        }
+      }
+
+      if (data.contact_no) {
+        let contact_no = await getRepository(User).query(
+          "SELECT contact_no FROM users WHERE contact_no = $1",
+          [data.contact_no]
+        );
+        if (contact_no.length > 0) {
+          return { error: "contact_no already exists" };
+        }
+      }
+
+      const dto = plainToClass(CreateStudentDto, data);
+
+      const error = await LogisticsUtils.validator(dto);
+      if (error) return error;
+
+      dto.password = await hash(dto.password, 10);
+      dto.is_student = true;
+      return await User.save(await User.create(dto));
+    } catch (error) {
+      return error;
+    }
+  };
+
+  static createStaff = async (data: CreateStaffDto) => {
+    try {
+      if (data.password !== data.passwordConfirm) {
+        return { error: "password and password confirm not matches" };
+      }
+
+      if (data.designation_id) {
+        let designation = await getRepository(Designation).query(
+          "SELECT id FROM designations WHERE id = $1",
+          [data.designation_id]
+        );
+        if (designation.length < 1) {
+          return { error: "designation id not exists" };
+        }
+      }
+
+      if (data.email) {
+        let email = await getRepository(User).query(
+          "SELECT email FROM users WHERE email = $1",
+          [data.email]
+        );
+        if (email.length > 0) {
+          return { error: "email already exists" };
+        }
+      }
+
+      if (data.contact_no) {
+        let contact_no = await getRepository(User).query(
+          "SELECT contact_no FROM users WHERE contact_no = $1",
+          [data.contact_no]
+        );
+        if (contact_no.length > 0) {
+          return { error: "contact_no already exists" };
+        }
+      }
+
+      const dto = plainToClass(CreateStaffDto, data);
+
+      const error = await LogisticsUtils.validator(dto);
+      if (error) return error;
 
       dto.password = await hash(dto.password, 10);
 

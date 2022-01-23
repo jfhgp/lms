@@ -17,14 +17,6 @@ export class UserDto {
   @IsBoolean()
   is_active: boolean;
 
-  @IsNotEmpty()
-  @IsString()
-  name: string;
-
-  @IsNotEmpty()
-  @IsEmail()
-  email: string;
-
   @IsOptional()
   @IsBoolean()
   is_email_valid: boolean;
@@ -33,15 +25,14 @@ export class UserDto {
   @IsString()
   password: string;
 
-  // confirmPassword
-
   @IsNotEmpty()
-  phone: string;
+  contact_no: string;
 
   @IsOptional()
   @IsBoolean()
   is_phone_valid: boolean;
 
+  @IsOptional()
   @IsEnum(UserRole)
   role: UserRole;
 
@@ -53,6 +44,9 @@ export class UserDto {
 
   @IsOptional()
   student_id: Student;
+
+  @IsOptional()
+  is_student: boolean;
 
   @IsOptional()
   employee_id: Employee;

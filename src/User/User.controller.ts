@@ -3,6 +3,8 @@ import { getRepository } from "typeorm";
 import { tokenVerification } from "../auth/Auth";
 import { Token } from "../Utils/fectory";
 import { SignInDto } from "./SignIn.dto";
+import { CreateStaffDto } from "./Staff-create.dto";
+import { CreateStudentDto } from "./Student-create.dto";
 import { CreateUserDto } from "./User-create.dto";
 import { User } from "./User.entity";
 import { UserService } from "./User.service";
@@ -11,6 +13,34 @@ export class UserController {
     try {
       const data: CreateUserDto = req.body;
       const result = await UserService.signUp(data);
+      if (!(result instanceof User)) {
+        return res.status(201).json({ status: 400, error: result });
+      }
+
+      return res.status(201).json({ status: 201, data: result });
+    } catch (error) {
+      return res.status(500).json({ error });
+    }
+  };
+
+  static createStudent = async (req: Request, res: Response) => {
+    try {
+      const data: CreateStudentDto = req.body;
+      const result = await UserService.createStudent(data);
+      if (!(result instanceof User)) {
+        return res.status(201).json({ status: 400, error: result });
+      }
+
+      return res.status(201).json({ status: 201, data: result });
+    } catch (error) {
+      return res.status(500).json({ error });
+    }
+  };
+
+  static createStaff = async (req: Request, res: Response) => {
+    try {
+      const data: CreateStaffDto = req.body;
+      const result = await UserService.createStaff(data);
       if (!(result instanceof User)) {
         return res.status(201).json({ status: 400, error: result });
       }
@@ -87,7 +117,8 @@ export class UserController {
         id: currentUser.id,
         name: currentUser.name,
         role: currentUser.role,
-        isStudent: currentUser.student_id ? true : false,
+        // isStudent: currentUser.student_id ? true : false,
+        is_student: currentUser.is_student,
         college_id: currentUser.college_id,
         region_id: currentUser.region_id,
       };
