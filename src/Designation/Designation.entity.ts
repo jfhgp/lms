@@ -1,4 +1,4 @@
-import { Column, Entity, OneToOne } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
 import { Scale } from "../Scale/Scale.entity";
 import { BaseAuto } from "../Utils/BaseAuto";
 
@@ -8,5 +8,6 @@ export class Designation extends BaseAuto {
   designation: string;
 
   @OneToOne(() => Scale, (scale) => scale, { nullable: false })
+  @JoinColumn({name: 'scale_id'})
   scale_id: Scale;
 }

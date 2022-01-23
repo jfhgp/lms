@@ -17,4 +17,6 @@ export abstract class Token {
   name: string;
   role: string;
   isStudent: boolean;
+  college_id: number;
+  region_id: number;
 }

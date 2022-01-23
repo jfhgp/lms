@@ -1,14 +1,14 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
 import { Board } from "../Board/Board.entity";
 import { District } from "../District/District.entity";
 import { Gender } from "../Gender/Gender.entity";
-import { SubGroup } from "../Group/Group.entity";
+import { Group } from "../Group/Group.entity";
 import { Province } from "../Province/Province.entity";
 import { Region } from "../Region/Region.entity";
 import { Religion } from "../Religion/Religion.entity";
 import { SchoolType } from "../SchoolType/SchoolType.entity";
 import { Subdivision } from "../Subdivision/Subdivision.entity";
-import { Group } from "../SubGroup/SubGroup.entity";
+import { SubGroup } from "../SubGroup/SubGroup.entity";
 import { BaseAuto } from "../Utils/BaseAuto";
 
 @Entity("students")

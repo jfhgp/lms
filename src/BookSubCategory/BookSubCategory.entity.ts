@@ -1,6 +1,5 @@
 import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 import { BookCategory } from "../BookCategory/BookCategory.entity";
-import { Province } from "../Province/Province.entity";
 import { BaseAuto } from "../Utils/BaseAuto";
 
 @Entity("book_sub_categories")

@@ -71,7 +71,7 @@ export class UserController {
       const decoded: any = await tokenVerification(token);
 
       let currentUser = await getRepository(User).query(
-        "SELECT id, name, role, student_id FROM users WHERE id = $1",
+        "SELECT id, name, role, student_id, college_id, region_id FROM users WHERE id = $1",
         [decoded.id]
       );
 
@@ -88,6 +88,8 @@ export class UserController {
         name: currentUser.name,
         role: currentUser.role,
         isStudent: currentUser.student_id ? true : false,
+        college_id: currentUser.college_id,
+        region_id: currentUser.region_id,
       };
       req.user = user;
 

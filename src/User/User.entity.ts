@@ -1,5 +1,6 @@
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
 import { College } from "../College/College.entity";
+import { Designation } from "../Designation/Designation.entity";
 import { Employee } from "../Employee/Employee.entity";
 import { Region } from "../Region/Region.entity";
 import { Student } from "../Student/Student.entity";
@@ -13,6 +14,41 @@ export class User extends BaseAuto {
 
   @Column({ nullable: false, type: "varchar" })
   name: string;
+  // Stident Info
+  @Column({ nullable: true, type: "varchar" })  // dto required
+  father_name: string;
+
+  @Column({ nullable: true, type: "varchar" })  // dto required
+  family_name: string;
+
+  @Column({ nullable: true, type: "varchar" })
+  class_name: string;
+
+  @Column({ nullable: true, type: "varchar" })
+  group: string;
+
+  @Column({ nullable: true, type: "varchar" }) // for student
+  roll_no: string;
+
+  @Column({ nullable: true, type: "varchar" }) // Staff
+  personnel_no: string;
+
+  @Column({ nullable: false, type: "varchar", unique: true }) // Phone
+  contact_no: string;
+
+  @Column({ nullable: true, type: "varchar" }) // Phone
+  father_contact_no: string;
+
+  @OneToOne(() => Designation, (designation) => designation, {
+    nullable: true,
+  })
+  @JoinColumn({ name: "designation_id" })
+  designation_id: Designation;
+
+  // Stident Info end
+
+  @Column({ nullable: true, type: "varchar" })
+  address: string;
 
   @Column({ nullable: false, type: "varchar", unique: true })
   email: string;
@@ -24,9 +60,6 @@ export class User extends BaseAuto {
   password: string;
 
   // confirmPassword
-
-  @Column({ nullable: false, type: "varchar", unique: true })
-  phone: string;
 
   @Column({ nullable: true, type: "boolean", default: true })
   is_phone_valid: boolean;

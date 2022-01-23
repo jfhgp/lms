@@ -1,12 +1,4 @@
-import {
-  BaseEntity,
-  Column,
-  CreateDateColumn,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 import { District } from "../District/District.entity";
 import { Region } from "../Region/Region.entity";
 import { Subdivision } from "../Subdivision/Subdivision.entity";

@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, Unique } from "typeorm";
 import { BookCategory } from "../BookCategory/BookCategory.entity";
 import { BookCondition } from "../BookCondition/BookCondition.entity";
 import { BookSubCategory } from "../BookSubCategory/BookSubCategory.entity";
@@ -10,11 +10,8 @@ import { User } from "../User/User.entity";
 import { BaseAuto } from "../Utils/BaseAuto";
 
 @Entity("hard_books")
+@Unique("accessible_college", ["accessible_no", "college_id"])
 export class HardBook extends BaseAuto {
-  // composite key accessible_no with college_id
-  @Column({ nullable: false, type: "varchar" })
-  accessible_no: string;
-
   @Column({ nullable: false, type: "varchar" })
   isbn: string;
 
@@ -91,11 +88,15 @@ export class HardBook extends BaseAuto {
   @Column({ nullable: true, type: "varchar" })
   source_of_book: string;
 
+  // composite key accessible_no with college_id
   @OneToOne(() => College, (college) => college, {
     nullable: true,
   })
   @JoinColumn({ name: "college_id" })
   college_id: College;
+
+  @Column({ nullable: false, type: "varchar" })
+  accessible_no: string;
 
   @OneToOne(() => Box, (box) => box, {
     nullable: false,
