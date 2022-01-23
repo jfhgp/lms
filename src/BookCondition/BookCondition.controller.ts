@@ -1,7 +1,7 @@
 import { plainToClass } from "class-transformer";
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
-import { LogisticsUtils } from "../Utils/fectory";
+import { LMSUtils } from "../Utils/fectory";
 import { BookConditionDto } from "./BookCondition.dto";
 import { BookCondition } from "./BookCondition.entity";
 export class BookConditionController {
@@ -12,7 +12,7 @@ export class BookConditionController {
 
       const dto = plainToClass(BookConditionDto, data);
 
-      const error = await LogisticsUtils.validator(dto);
+      const error = await LMSUtils.validator(dto);
       if (error) return res.status(400).json({ status: 400, error });
 
       const result = await BookCondition.save(await BookCondition.create(dto));

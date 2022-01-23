@@ -1,7 +1,7 @@
 import { plainToClass } from "class-transformer";
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
-import { LogisticsUtils } from "../Utils/fectory";
+import { LMSUtils } from "../Utils/fectory";
 import { ScaleDto } from "./Scale.dto";
 import { Scale } from "./Scale.entity";
 export class ScaleController {
@@ -12,7 +12,7 @@ export class ScaleController {
 
       const dto = plainToClass(ScaleDto, data);
 
-      const error = await LogisticsUtils.validator(dto);
+      const error = await LMSUtils.validator(dto);
       if (error) return res.status(400).json({ status: 400, error });
 
       const result = await Scale.save(await Scale.create(dto));

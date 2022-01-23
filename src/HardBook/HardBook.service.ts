@@ -6,7 +6,7 @@ import { BookType } from "../BookType/BookType.entity";
 import { Box } from "../Box/Box.entity";
 import { College } from "../College/College.entity";
 import { Language } from "../Language/Language.entity";
-import { LogisticsUtils } from "../Utils/fectory";
+import { LMSUtils } from "../Utils/fectory";
 import { CreateHardBookDto } from "./HardBook-create.Dto";
 import { UpdateHardBookDto } from "./HardBook-update.Dto";
 import { HardBook } from "./HardBook.entity";
@@ -85,7 +85,7 @@ export class HardBookService {
       }
       const dto = plainToClass(CreateHardBookDto, data);
 
-      const error = await LogisticsUtils.validator(dto);
+      const error = await LMSUtils.validator(dto);
       if (error) return error;
       return await HardBook.save(await HardBook.create(dto));
     } catch (error) {
@@ -166,7 +166,7 @@ export class HardBookService {
       }
       const dto = plainToClass(UpdateHardBookDto, data);
 
-      const error = await LogisticsUtils.validator(dto);
+      const error = await LMSUtils.validator(dto);
       if (error) return error;
 
       let id = await getRepository(HardBook).query(

@@ -1,7 +1,7 @@
 import { plainToClass } from "class-transformer";
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
-import { LogisticsUtils } from "../Utils/fectory";
+import { LMSUtils } from "../Utils/fectory";
 import { GroupDto } from "./Group.dto";
 import { Group } from "./Group.entity";
 export class GroupController {
@@ -12,7 +12,7 @@ export class GroupController {
 
       const dto = plainToClass(GroupDto, data);
 
-      const error = await LogisticsUtils.validator(dto);
+      const error = await LMSUtils.validator(dto);
       if (error) return res.status(400).json({ status: 400, error });
 
       const result = await Group.save(await Group.create(dto));

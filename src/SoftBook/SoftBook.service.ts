@@ -1,6 +1,6 @@
 import { plainToClass } from "class-transformer";
 import { getRepository } from "typeorm";
-import { LogisticsUtils } from "../Utils/fectory";
+import { LMSUtils } from "../Utils/fectory";
 import { CreateSoftBookDto } from "./SoftBook-create.Dto";
 import { BookCategory } from "../BookCategory/BookCategory.entity";
 import { BookType } from "../BookType/BookType.entity";
@@ -65,7 +65,7 @@ export class SoftBookService {
 
       const dto = plainToClass(CreateSoftBookDto, data);
 
-      const error = await LogisticsUtils.validator(dto);
+      const error = await LMSUtils.validator(dto);
       if (error) return error;
 
       if (file.name) {

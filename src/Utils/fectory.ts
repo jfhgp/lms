@@ -1,5 +1,5 @@
 import { validate } from "class-validator";
-export class LogisticsUtils {
+export class LMSUtils {
   static validator = async (dto: any) => {
     const errors = await validate(dto);
     if (errors.length) {

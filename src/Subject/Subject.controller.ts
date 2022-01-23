@@ -1,7 +1,7 @@
 import { plainToClass } from "class-transformer";
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
-import { LogisticsUtils } from "../Utils/fectory";
+import { LMSUtils } from "../Utils/fectory";
 import { SubjectDto } from "./Subject.dto";
 import { Subject } from "./Subject.entity";
 export class SubjectController {
@@ -12,7 +12,7 @@ export class SubjectController {
 
       const dto = plainToClass(SubjectDto, data);
 
-      const error = await LogisticsUtils.validator(dto);
+      const error = await LMSUtils.validator(dto);
       if (error) return res.status(400).json({ status: 400, error });
 
       const result = await Subject.save(await Subject.create(dto));

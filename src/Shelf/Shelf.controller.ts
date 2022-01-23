@@ -1,7 +1,7 @@
 import { plainToClass } from "class-transformer";
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
-import { LogisticsUtils } from "../Utils/fectory";
+import { LMSUtils } from "../Utils/fectory";
 import { ShelfDto } from "./Shelf.dto";
 import { Shelf } from "./Shelf.entity";
 export class ShelfController {
@@ -12,7 +12,7 @@ export class ShelfController {
 
       const dto = plainToClass(ShelfDto, data);
 
-      const error = await LogisticsUtils.validator(dto);
+      const error = await LMSUtils.validator(dto);
       if (error) return res.status(400).json({ status: 400, error });
 
       const result = await Shelf.save(await Shelf.create(dto));

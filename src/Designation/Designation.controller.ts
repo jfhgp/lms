@@ -1,7 +1,7 @@
 import { plainToClass } from "class-transformer";
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
-import { LogisticsUtils } from "../Utils/fectory";
+import { LMSUtils } from "../Utils/fectory";
 import { DesignationDto } from "./Designation.dto";
 import { Designation } from "./Designation.entity";
 export class DesignationController {
@@ -12,7 +12,7 @@ export class DesignationController {
 
       const dto = plainToClass(DesignationDto, data);
 
-      const error = await LogisticsUtils.validator(dto);
+      const error = await LMSUtils.validator(dto);
       if (error) return res.status(400).json({ status: 400, error });
 
       const result = await Designation.save(await Designation.create(dto));

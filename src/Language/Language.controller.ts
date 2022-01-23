@@ -1,7 +1,7 @@
 import { plainToClass } from "class-transformer";
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
-import { LogisticsUtils } from "../Utils/fectory";
+import { LMSUtils } from "../Utils/fectory";
 import { LanguageDto } from "./Language.dto";
 import { Language } from "./Language.entity";
 export class LanguageController {
@@ -12,7 +12,7 @@ export class LanguageController {
 
       const dto = plainToClass(LanguageDto, data);
 
-      const error = await LogisticsUtils.validator(dto);
+      const error = await LMSUtils.validator(dto);
       if (error) return res.status(400).json({ status: 400, error });
 
       const result = await Language.save(await Language.create(dto));

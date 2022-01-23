@@ -1,7 +1,7 @@
 import { plainToClass } from "class-transformer";
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
-import { LogisticsUtils } from "../Utils/fectory";
+import { LMSUtils } from "../Utils/fectory";
 import { ReligionDto } from "./Religion.dto";
 import { Religion } from "./Religion.entity";
 export class ReligionController {
@@ -12,7 +12,7 @@ export class ReligionController {
 
       const dto = plainToClass(ReligionDto, data);
 
-      const error = await LogisticsUtils.validator(dto);
+      const error = await LMSUtils.validator(dto);
       if (error) return res.status(400).json({ status: 400, error });
 
       const result = await Religion.save(await Religion.create(dto));

@@ -1,7 +1,7 @@
 import { plainToClass } from "class-transformer";
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
-import { LogisticsUtils } from "../Utils/fectory";
+import { LMSUtils } from "../Utils/fectory";
 import { BookCategoryDto } from "./BookCategory.dto";
 import { BookCategory } from "./BookCategory.entity";
 export class BookCategoryController {
@@ -12,7 +12,7 @@ export class BookCategoryController {
 
       const dto = plainToClass(BookCategoryDto, data);
 
-      const error = await LogisticsUtils.validator(dto);
+      const error = await LMSUtils.validator(dto);
       if (error) return res.status(400).json({ status: 400, error });
 
       const result = await BookCategory.save(await BookCategory.create(dto));

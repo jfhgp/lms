@@ -1,7 +1,7 @@
 import { plainToClass } from "class-transformer";
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
-import { LogisticsUtils } from "../Utils/fectory";
+import { LMSUtils } from "../Utils/fectory";
 import { GenderDto } from "./Gender.dto";
 import { Gender } from "./Gender.entity";
 export class GenderController {
@@ -12,7 +12,7 @@ export class GenderController {
 
       const dto = plainToClass(GenderDto, data);
 
-      const error = await LogisticsUtils.validator(dto);
+      const error = await LMSUtils.validator(dto);
       if (error) return res.status(400).json({ status: 400, error });
 
       const result = await Gender.save(await Gender.create(dto));

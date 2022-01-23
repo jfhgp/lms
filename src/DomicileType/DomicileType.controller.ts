@@ -1,7 +1,7 @@
 import { plainToClass } from "class-transformer";
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
-import { LogisticsUtils } from "../Utils/fectory";
+import { LMSUtils } from "../Utils/fectory";
 import { DomicileTypeDto } from "./DomicileType.dto";
 import { DomicileType } from "./DomicileType.entity";
 export class DomicileTypeController {
@@ -12,7 +12,7 @@ export class DomicileTypeController {
 
       const dto = plainToClass(DomicileTypeDto, data);
 
-      const error = await LogisticsUtils.validator(dto);
+      const error = await LMSUtils.validator(dto);
       if (error) return res.status(400).json({ status: 400, error });
 
       const result = await DomicileType.save(await DomicileType.create(dto));

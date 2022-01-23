@@ -7,7 +7,7 @@ import { Designation } from "../Designation/Designation.entity";
 import { Employee } from "../Employee/Employee.entity";
 import { Region } from "../Region/Region.entity";
 import { Student } from "../Student/Student.entity";
-import { LogisticsUtils } from "../Utils/fectory";
+import { LMSUtils } from "../Utils/fectory";
 import { SignInDto } from "./SignIn.dto";
 import { CreateStaffDto } from "./Staff-create.dto";
 import { CreateStudentDto } from "./Student-create.dto";
@@ -67,7 +67,7 @@ export class UserService {
 
       const dto = plainToClass(CreateUserDto, data);
 
-      const error = await LogisticsUtils.validator(dto);
+      const error = await LMSUtils.validator(dto);
       if (error) return error;
 
       if (data.password !== data.passwordConfirm) {
@@ -110,7 +110,7 @@ export class UserService {
 
       const dto = plainToClass(CreateStudentDto, data);
 
-      const error = await LogisticsUtils.validator(dto);
+      const error = await LMSUtils.validator(dto);
       if (error) return error;
 
       dto.password = await hash(dto.password, 10);
@@ -159,7 +159,7 @@ export class UserService {
 
       const dto = plainToClass(CreateStaffDto, data);
 
-      const error = await LogisticsUtils.validator(dto);
+      const error = await LMSUtils.validator(dto);
       if (error) return error;
 
       dto.password = await hash(dto.password, 10);
@@ -173,7 +173,7 @@ export class UserService {
   static signIn = async (data: SignInDto) => {
     try {
       const dto = plainToClass(SignInDto, data);
-      const error = await LogisticsUtils.validator(dto);
+      const error = await LMSUtils.validator(dto);
       if (error) return error;
 
       let user = await getRepository(User).query(

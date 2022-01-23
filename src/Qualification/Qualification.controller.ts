@@ -1,7 +1,7 @@
 import { plainToClass } from "class-transformer";
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
-import { LogisticsUtils } from "../Utils/fectory";
+import { LMSUtils } from "../Utils/fectory";
 import { QualificationDto } from "./Qualification.dto";
 import { Qualification } from "./Qualification.entity";
 export class QualificationController {
@@ -12,7 +12,7 @@ export class QualificationController {
 
       const dto = plainToClass(QualificationDto, data);
 
-      const error = await LogisticsUtils.validator(dto);
+      const error = await LMSUtils.validator(dto);
       if (error) return res.status(400).json({ status: 400, error });
 
       const result = await Qualification.save(await Qualification.create(dto));
