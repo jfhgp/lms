@@ -1,4 +1,5 @@
 import { compare, hash } from "bcryptjs";
+import { randomBytes, createHash } from "crypto";
 import { plainToClass } from "class-transformer";
 import { getRepository } from "typeorm";
 import { signJwt } from "../auth/Auth";
@@ -8,6 +9,7 @@ import { Employee } from "../Employee/Employee.entity";
 import { Region } from "../Region/Region.entity";
 import { Student } from "../Student/Student.entity";
 import { LMSUtils } from "../Utils/fectory";
+import { ChangePasswordDto } from "./ChangePassword.dto";
 import { SignInDto } from "./SignIn.dto";
 import { CreateStaffDto } from "./Staff-create.dto";
 import { CreateStudentDto } from "./Student-create.dto";
@@ -209,6 +211,75 @@ export class UserService {
         "SELECT * FROM users WHERE id = $1",
         [id]
       );
+    } catch (error) {
+      return error;
+    }
+  };
+
+  static changePassword = async (data: ChangePasswordDto) => {
+    try {
+      const dto = plainToClass(ChangePasswordDto, data);
+
+      const error = await LMSUtils.validator(dto);
+      if (error) return error;
+
+      if (dto.password !== dto.passwordConfirm) {
+        return { error: "both passwords not maches" };
+      }
+
+      const user = await getRepository(User).query(
+        "SELECT password FROM users WHERE id = $1",
+        [dto.id]
+      );
+
+      if (user.length > 1) {
+        let check = await compare(dto.passwordOld, user[0].password);
+
+        if (!check) {
+          return { error: "Your current password is wrong." };
+        }
+      }
+
+      dto.password = await hash(dto.password, 10);
+      await User.update({ id: dto.id }, { password: dto.password });
+
+      return signJwt(dto.id);
+    } catch (error) {
+      return error;
+    }
+  };
+
+  static forgotPassword = async (email: string) => {
+    try {
+      if (!email) {
+        return { error: "Please provide email address" };
+      }
+      let user = await getRepository(User).query(
+        "SELECT email FROM users WHERE email = $1",
+        [email]
+      );
+      user = user[0];
+      if (!user) {
+        return { error: "There is no user with this email address" };
+      }
+
+      const resetToken = randomBytes(32).toString("hex");
+
+      let passwordResetToken = createHash("sha256")
+        .update(resetToken)
+        .digest("hex");
+
+      let passwordResetExpires = Date.now() + 10 * 60 * 1000;
+
+      let update = await User.update(
+        { email },
+        { passwordResetToken, passwordResetExpires }
+      );
+      if (update.affected === 1 || "1") {
+        return resetToken;
+      } else {
+        return { error: "something went wrong" };
+      }
     } catch (error) {
       return error;
     }

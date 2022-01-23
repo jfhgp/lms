@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { getRepository } from "typeorm";
 import { tokenVerification } from "../auth/Auth";
 import { Token } from "../Utils/fectory";
+import { ChangePasswordDto } from "./ChangePassword.dto";
 import { SignInDto } from "./SignIn.dto";
 import { CreateStaffDto } from "./Staff-create.dto";
 import { CreateStudentDto } from "./Student-create.dto";
@@ -144,4 +145,25 @@ export class UserController {
       }
       next();
     };
+
+  static changePassword = async (req: Request, res: Response) => {
+    try {
+      const data: ChangePasswordDto = req.body;
+      data.id = req.user.id;
+      const token = await UserService.changePassword(data);
+
+      return res.status(200).json({ status: 200, token });
+    } catch (error) {
+      return res.status(500).json({ error });
+    }
+  };
+
+  static forgotPassword = async (req: Request, res: Response) => {
+    try {
+      const data = await UserService.forgotPassword(req.body.email);
+      return res.status(200).json({ status: 200, data });
+    } catch (error) {
+      return res.status(500).json({ error });
+    }
+  };
 }

@@ -85,4 +85,12 @@ export class User extends BaseAuto {
   @ManyToOne(() => Employee, (employee) => employee, { nullable: true })
   @JoinColumn({ name: "employee_id" })
   employee_id: Employee;
+
+  // Change password / forgot password --- without dto
+  @Column({ nullable: true, type: "date" })
+  passwordChangedAt: Date;
+  @Column({ nullable: true, type: "varchar" })
+  passwordResetToken: String;
+  @Column({ nullable: true, type: 'bigint' })
+  passwordResetExpires: number;
 }
