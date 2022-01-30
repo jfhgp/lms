@@ -26,7 +26,7 @@ export class BookSubCategoryController {
   static get = async (req: Request, res: Response) => {
     try {
       const result = await getRepository(BookSubCategory).query(
-        "SELECT * FROM boards WHERE id = $1",
+        "SELECT * FROM book_sub_categories WHERE id = $1",
         [Number(req.params.id)]
       );
       return res.status(200).json({ status: 200, data: result[0] });
@@ -37,7 +37,7 @@ export class BookSubCategoryController {
 
   static getAll = async (req: Request, res: Response) => {
     try {
-      const result = await getRepository(BookSubCategory).query("SELECT * FROM boards");
+      const result = await getRepository(BookSubCategory).query("SELECT * FROM book_sub_categories");
       return res.status(200).json({ status: 200, data: result });
     } catch (error) {
       return res.status(500).json({ status: 500, error });

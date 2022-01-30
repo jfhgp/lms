@@ -27,12 +27,17 @@ export class UserController {
   static createStudent = async (req: Request, res: Response) => {
     try {
       const data: CreateStudentDto = req.body;
-      const result = await UserService.createStudent(data);
-      if (!(result instanceof User)) {
-        return res.status(201).json({ status: 400, error: result });
+      data.password = process.env.DEFAULT_PASSWORD as any;
+      data.passwordConfirm = process.env.DEFAULT_PASSWORD as any;
+      const resultUser = await UserService.createStudent(data);
+      if (!(resultUser instanceof User)) {
+        return res.status(201).json({ status: 400, error: resultUser });
       }
-
-      return res.status(201).json({ status: 201, data: result });
+      let result = await getRepository(User).query(
+        "SELECT id, name, father_name, family_name, class_name, roll_no, college_id, address, email, contact_no, father_contact_no FROM users WHERE id = $1",
+        [resultUser.id]
+      );
+      return res.status(201).json({ status: 201, data: result[0] });
     } catch (error) {
       return res.status(500).json({ error });
     }
@@ -41,12 +46,19 @@ export class UserController {
   static createStaff = async (req: Request, res: Response) => {
     try {
       const data: CreateStaffDto = req.body;
-      const result = await UserService.createStaff(data);
-      if (!(result instanceof User)) {
-        return res.status(201).json({ status: 400, error: result });
+      data.password = process.env.DEFAULT_PASSWORD as any;
+      data.passwordConfirm = process.env.DEFAULT_PASSWORD as any;
+      const resultUser = await UserService.createStaff(data);
+      if (!(resultUser instanceof User)) {
+        return res.status(201).json({ status: 400, error: resultUser });
       }
 
-      return res.status(201).json({ status: 201, data: result });
+      let result = await getRepository(User).query(
+        "SELECT id, personnel_no, name, father_name, family_name, designation_id, address, email, contact_no, college_id FROM users WHERE id = $1",
+        [resultUser.id]
+      );
+
+      return res.status(201).json({ status: 201, data: result[0] });
     } catch (error) {
       return res.status(500).json({ error });
     }

@@ -36,7 +36,7 @@ export class UserDto {
   @IsEnum(UserRole)
   role: UserRole;
 
-  @IsOptional()
+  @IsNotEmpty()
   college_id: College;
 
   @IsOptional()

@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToOne, Unique } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, Unique } from "typeorm";
 import { BookCategory } from "../BookCategory/BookCategory.entity";
 import { BookCondition } from "../BookCondition/BookCondition.entity";
 import { BookSubCategory } from "../BookSubCategory/BookSubCategory.entity";
@@ -9,7 +9,7 @@ import { Language } from "../Language/Language.entity";
 import { BaseAuto } from "../Utils/BaseAuto";
 
 @Entity("hard_books")
-@Unique("accessible_college", ["accessible_no", "college_id"])
+// @Unique("accessible_college", ["accessible_no", "college_id"])
 export class HardBook extends BaseAuto {
   @Column({ nullable: false, type: "varchar" })
   isbn: string;
@@ -26,7 +26,7 @@ export class HardBook extends BaseAuto {
   @Column({ nullable: true, type: "varchar" })
   date_published: string;
 
-  @OneToOne(() => Language, (language) => language, { nullable: false })
+  @ManyToOne(() => Language, (language) => language, { nullable: false })
   @JoinColumn({ name: "language_id" })
   language_id: Language;
 
@@ -39,13 +39,13 @@ export class HardBook extends BaseAuto {
   @Column({ nullable: true, type: "integer", default: 1 })
   volume: number;
 
-  @OneToOne(() => BookCategory, (book_category) => book_category, {
+  @ManyToOne(() => BookCategory, (book_category) => book_category, {
     nullable: false,
   })
   @JoinColumn({ name: "category_id" })
   category_id: BookCategory;
 
-  @OneToOne(() => BookSubCategory, (book_sub_category) => book_sub_category, {
+  @ManyToOne(() => BookSubCategory, (book_sub_category) => book_sub_category, {
     nullable: true,
   })
   @JoinColumn({ name: "sub_category_id" })
@@ -54,13 +54,13 @@ export class HardBook extends BaseAuto {
   @Column({ nullable: true, type: "integer", default: 1 })
   number_of_copies: number;
 
-  @OneToOne(() => BookCondition, (book_condition) => book_condition, {
+  @ManyToOne(() => BookCondition, (book_condition) => book_condition, {
     nullable: false,
   })
   @JoinColumn({ name: "book_condition_id" })
   book_condition_id: BookCondition;
 
-  @Column({ nullable: false, type: "varchar" })
+  @Column({ nullable: true, type: "varchar" })
   image_front: string;
 
   @Column({ nullable: true, type: "varchar" })
@@ -72,7 +72,7 @@ export class HardBook extends BaseAuto {
   @Column({ nullable: true, type: "boolean", default: false })
   xerox_copy: boolean;
 
-  @OneToOne(() => BookType, (book_type) => book_type, {
+  @ManyToOne(() => BookType, (book_type) => book_type, {
     nullable: true,
   })
   @JoinColumn({ name: "book_type_id" })
@@ -88,16 +88,16 @@ export class HardBook extends BaseAuto {
   source_of_book: string;
 
   // composite key accessible_no with college_id
-  @OneToOne(() => College, (college) => college, {
+  @ManyToOne(() => College, (college) => college, {
     nullable: true,
   })
   @JoinColumn({ name: "college_id" })
   college_id: College;
 
-  @Column({ nullable: false, type: "varchar" })
+  @Column({ nullable: true, type: "varchar" })
   accessible_no: string;
 
-  @OneToOne(() => Box, (box) => box, {
+  @ManyToOne(() => Box, (box) => box, {
     nullable: false,
   })
   @JoinColumn({ name: "box_id" })

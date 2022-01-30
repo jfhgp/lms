@@ -1,6 +1,12 @@
 import { Application } from "express";
 import userRoute from "./User/User.route";
+
 import hardBookRoute from "./HardBook/HardBook.route";
+import issueBooksRoute from "./IssueBook/IssueBook.route";
+import returnBooksRoute from "./ReturnBook/ReturnBook.route";
+import bookPenaltyRoute from "./BookPenalty/BookPenalty.route";
+
+
 import softBookRoute from "./SoftBook/SoftBook.route";
 import boardRoute from "./Board/Board.route";
 import bookCategory from "./BookCategory/BookCategory.route";
@@ -29,10 +35,18 @@ import shelf from "./Shelf/Shelf.route";
 import subdivision from "./Subdivision/Subdivision.route";
 import subject from "./Subject/Subject.route";
 import teachingStatus from "./TeachingStatus/TeachingStatus.route";
+import college from "./College/College.route";
 
 export function setup(app: Application) {
   app.use("/api/v1/users", userRoute);
+
+
   app.use("/api/v1/books/hard", hardBookRoute);
+  app.use("/api/v1/issues", issueBooksRoute);
+  app.use("/api/v1/returns", returnBooksRoute);
+  app.use("/api/v1/penalties", bookPenaltyRoute);
+
+
   app.use("/api/v1/books/soft", softBookRoute);
   app.use("/api/v1/boards", boardRoute);
   app.use("/api/v1/book-categories", bookCategory);
@@ -61,4 +75,5 @@ export function setup(app: Application) {
   app.use("/api/v1/subdivisions", subdivision);
   app.use("/api/v1/subjects", subject);
   app.use("/api/v1/teaching-statuses", teachingStatus);
+  app.use("/api/v1/colleges", college);
 }

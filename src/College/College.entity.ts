@@ -3,18 +3,11 @@ import { District } from "../District/District.entity";
 import { Region } from "../Region/Region.entity";
 import { Subdivision } from "../Subdivision/Subdivision.entity";
 import { BaseAuto } from "../Utils/BaseAuto";
-import { GenderEnum } from "./GenderEnum";
 
 @Entity("colleges")
 export class College extends BaseAuto {
   @Column({ nullable: false, type: "varchar" })
-  ddo_code: string;
-
-  @Column({ nullable: false, type: "varchar" })
-  name: string;
-
-  @Column({ nullable: false, enum: GenderEnum, type: "enum" })
-  gender: GenderEnum;
+  college_name: string;
 
   @ManyToOne(() => Subdivision, (subdivision) => subdivision, {
     nullable: false,

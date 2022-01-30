@@ -67,7 +67,7 @@ export class HardBookDto {
   @IsNotEmpty()
   book_condition_id: BookCondition;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   image_front: string;
 
@@ -101,6 +101,9 @@ export class HardBookDto {
 
   @IsOptional()
   college_id: College;
+
+  @IsNotEmpty()
+  accessible_no: string;
 
   @IsNotEmpty()
   box_id: Box;

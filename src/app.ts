@@ -11,9 +11,9 @@ import { setup } from "./routes";
 
 const app = express();
 
-app.set("view engine", "ejs");
+app.set("view engine", "pug");
 
-app.set("views", path.join(__dirname, "../views"));
+app.set("views", path.join(__dirname, "views"));
 
 app.use(
   fileUpload({

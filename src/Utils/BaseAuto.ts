@@ -2,6 +2,7 @@ import {
   BaseEntity,
   CreateDateColumn,
   JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
@@ -22,13 +23,13 @@ export class BaseAuto extends BaseEntity {
   })
   updatedAt: Date;
 
-  @OneToOne(() => User, (user) => user, {
+  @ManyToOne(() => User, (user) => user, {
     nullable: true,
   })
   @JoinColumn({ name: "added_by" })
   added_by: User;
 
-  @OneToOne(() => User, (user) => user, {
+  @ManyToOne(() => User, (user) => user, {
     nullable: true,
   })
   @JoinColumn({ name: "updated_by" })

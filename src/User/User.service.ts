@@ -15,6 +15,9 @@ import { CreateStaffDto } from "./Staff-create.dto";
 import { CreateStudentDto } from "./Student-create.dto";
 import { CreateUserDto } from "./User-create.dto";
 import { User } from "./User.entity";
+import pug from "pug";
+
+import { ForgotPassword } from "../auth/ForgotPassword";
 
 export class UserService {
   static signUp = async (data: CreateUserDto) => {
@@ -117,7 +120,24 @@ export class UserService {
 
       dto.password = await hash(dto.password, 10);
       dto.is_student = true;
-      return await User.save(await User.create(dto));
+      let user = await User.save(await User.create(dto));
+
+      // if (!user) {
+      //   return { error: "There is no user with email address." };
+      // }
+
+      // const resetToken = ForgotPassword.createUserPasswordResetToken(user);
+
+      // const resetURL = `${process.env.RESET_PASSWORD_URL}${resetToken}`;
+
+      // const html = pug.renderFile(
+      //   `${__dirname}/../views/email/passwordReset.pug`,
+      //   {
+      //     name: user.name,
+      //     url: resetURL,
+      //   }
+      // );
+      return user;
     } catch (error) {
       return error;
     }
